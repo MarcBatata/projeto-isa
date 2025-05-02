@@ -250,7 +250,7 @@ setTimeout(() => {
   });
 }, 100);
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Seletores para o modal de comentários
   const commentButton = document.querySelector('.social .inter div button:nth-child(2)');
   const modalOverlay = document.getElementById('comments-modal-overlay');
@@ -258,7 +258,154 @@ document.addEventListener('DOMContentLoaded', function() {
   const commentInput = document.getElementById('comment-input');
   const postCommentButton = document.getElementById('post-comment');
   const commentsContainer = document.querySelector('.comments-container');
-  
+
+  // Array para armazenar todos os comentários (existentes + novos)
+  let allComments = [];
+
+  // Carregar comentários salvos do localStorage quando a página carrega
+  loadCommentsFromLocalStorage();
+
+  // Função para criar elemento de comentário a partir de um objeto de comentário
+  function createCommentElement(commentObj) {
+    // Criar elementos do comentário
+    const comment = document.createElement('div');
+    comment.className = 'comment';
+
+    // Determinar se é um comentário do usuário (para mostrar opções de exclusão)
+    const deleteOption = commentObj.isUserComment ?
+      '<span class="delete-comment" style="color: #f13b3b;">Excluir</span>' : '';
+
+    // HTML do comentário
+    comment.innerHTML = `
+      <img src="${commentObj.avatar}" alt="Avatar" class="comment-avatar">
+      <div class="comment-content">
+        <div class="comment-username">${commentObj.username}</div>
+        <div class="comment-text">${commentObj.text}</div>
+        <div class="comment-actions">
+          <span>${commentObj.time}</span>
+          <span class="like-action">Curtir</span>
+          <span class="reply-action">Responder</span>
+          ${deleteOption}
+        </div>
+      </div>
+    `;
+
+    // Adicionar o comentário ao início ou fim da lista, dependendo se é do usuário
+    if (commentObj.isUserComment) {
+      commentsContainer.insertBefore(comment, commentsContainer.firstChild);
+    } else {
+      commentsContainer.appendChild(comment);
+    }
+
+    // Adicionar eventos de clique para opções de comentário
+    if (commentObj.isUserComment) {
+      const deleteButton = comment.querySelector('.delete-comment');
+      if (deleteButton) {
+        deleteButton.addEventListener('click', () => {
+          // Remove o comentário do DOM
+          comment.remove();
+          // Remove o comentário do array
+          const index = allComments.findIndex(c =>
+            c.text === commentObj.text &&
+            c.time === commentObj.time &&
+            c.isUserComment === true);
+
+          if (index !== -1) {
+            allComments.splice(index, 1);
+            // Salva os comentários atualizados
+            saveCommentsToLocalStorage();
+          }
+        });
+      }
+    }
+
+    // Adicionar funcionalidade para curtir
+    const likeButton = comment.querySelector('.like-action');
+    if (likeButton) {
+      likeButton.addEventListener('click', () => {
+        if (likeButton.style.color === 'rgb(237, 73, 86)') {
+          likeButton.style.color = '';
+          likeButton.textContent = 'Curtir';
+        } else {
+          likeButton.style.color = 'rgb(237, 73, 86)';
+          likeButton.textContent = 'Curtido';
+        }
+      });
+    }
+
+    // Adicionar funcionalidade para responder
+    const replyButton = comment.querySelector('.reply-action');
+    if (replyButton) {
+      replyButton.addEventListener('click', () => {
+        const username = comment.querySelector('.comment-username').textContent;
+        commentInput.value = `@${username} `;
+        commentInput.focus();
+        
+        // Abrir o modal de comentários se estiver fechado
+        if (!modalOverlay.classList.contains('active')) {
+          modalOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+        
+        // Habilitar o botão de publicar
+        postCommentButton.disabled = false;
+      });
+    }
+    
+    return comment;
+  }
+
+  // Função para carregar comentários do localStorage
+  function loadCommentsFromLocalStorage() {
+    // Tentar obter comentários salvos
+    const savedComments = localStorage.getItem('userComments');
+
+    // Guarda todos os comentários iniciais já existentes no HTML
+    const initialComments = Array.from(commentsContainer.querySelectorAll('.comment')).map(comment => {
+      const username = comment.querySelector('.comment-username').textContent;
+      const text = comment.querySelector('.comment-text').textContent;
+      const timeStr = comment.querySelector('.comment-actions span:first-child').textContent;
+      const avatar = comment.querySelector('.comment-avatar').src;
+
+      return {
+        username: username,
+        text: text,
+        time: timeStr,
+        avatar: avatar,
+        isUserComment: false // Marca como comentário pré-existente
+      };
+    });
+
+    // Se houver comentários salvos, adicione-os ao container
+    if (savedComments) {
+      // Converte string JSON para array de objetos
+      const userComments = JSON.parse(savedComments);
+
+      // Combina comentários iniciais com os comentários do usuário salvos
+      allComments = [...initialComments, ...userComments];
+    } else {
+      // Se não houver comentários salvos, guarda apenas os comentários iniciais
+      allComments = [...initialComments];
+    }
+
+    // Limpa o container e exibe todos os comentários
+    commentsContainer.innerHTML = '';
+    
+    // Adiciona todos os comentários ao container
+    allComments.forEach(comment => {
+      createCommentElement(comment);
+    });
+  }
+
+  // Função para salvar comentários no localStorage
+  function saveCommentsToLocalStorage() {
+    // Filtra apenas os comentários do usuário
+    const userComments = allComments.filter(comment => comment.isUserComment);
+
+    // Salva no localStorage como string JSON
+    localStorage.setItem('userComments', JSON.stringify(userComments));
+  }
+
   // Abrir o modal ao clicar no botão de comentários
   if (commentButton) {
     commentButton.addEventListener('click', () => {
@@ -266,27 +413,20 @@ document.addEventListener('DOMContentLoaded', function() {
       modalOverlay.classList.add('active');
       // Impedir o scroll da página
       document.body.style.overflow = 'hidden';
-      // ADICIONADO: Desabilitar o Swiper quando o modal estiver aberto
-      if (typeof swiper !== 'undefined') {
-        // Desabilitar o mousewheel e touchmove do Swiper
-        swiper.mousewheel.disable();
-        swiper.allowTouchMove = false;
-        console.log('Swiper desabilitado');
-      }
       // Focar no campo de input
       setTimeout(() => {
         commentInput.focus();
       }, 300);
     });
   }
-  
+
   // Fechar o modal ao clicar no botão de fechar
   if (closeModalButton) {
     closeModalButton.addEventListener('click', () => {
       closeCommentsModal();
     });
   }
-  
+
   // Fechar o modal ao clicar fora dele
   if (modalOverlay) {
     modalOverlay.addEventListener('click', (e) => {
@@ -296,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  
+
   // Função para fechar o modal
   function closeCommentsModal() {
     modalOverlay.classList.remove('active');
@@ -338,13 +478,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }, { passive: false });
     }
   }
-  
+
   // Habilitar/desabilitar o botão de publicar com base no conteúdo do input
   if (commentInput) {
     commentInput.addEventListener('input', () => {
       postCommentButton.disabled = !commentInput.value.trim();
     });
-    
+
     // Permitir enviar comentário com Enter
     commentInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && commentInput.value.trim()) {
@@ -352,83 +492,160 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  
+
   // Adicionar um novo comentário ao clicar em "Publicar"
   if (postCommentButton) {
     postCommentButton.addEventListener('click', () => {
       addNewComment();
     });
   }
-  
+
   // Função para adicionar um novo comentário
   function addNewComment() {
     if (!commentInput.value.trim()) return;
-    
-    // Criar elementos do comentário
-    const comment = document.createElement('div');
-    comment.className = 'comment';
-    
-    // Data/hora atual para o comentário
+
+    // Criar dados do comentário
     const now = new Date();
     const timeString = 'agora mesmo';
-    
-    // HTML do comentário
-    comment.innerHTML = `
-      <img src="img/pfp.jpeg" alt="Seu avatar" class="comment-avatar">
-      <div class="comment-content">
-        <div class="comment-username">você</div>
-        <div class="comment-text">${commentInput.value}</div>
-        <div class="comment-actions">
-          <span>${timeString}</span>
-          <span>Curtir</span>
-          <span>Responder</span>
-        </div>
-      </div>
-    `;
-    
-    // Adicionar o comentário ao início da lista
-    commentsContainer.insertBefore(comment, commentsContainer.firstChild);
-    
+    const avatarSrc = "images/isa.jpg";
+
+    // Criar objeto de comentário
+    const newComment = {
+      username: 'você',
+      text: commentInput.value,
+      time: timeString,
+      avatar: "images/isa.jpg",
+      isUserComment: true
+    };
+
+    // Adicionar ao array de comentários
+    allComments.unshift(newComment);
+
+    // Criar e adicionar o elemento DOM
+    const commentElement = createCommentElement(newComment);
+
+    // Salvar comentários atualizados
+    saveCommentsToLocalStorage();
+
     // Limpar o input e desabilitar o botão
     commentInput.value = '';
     postCommentButton.disabled = true;
-    
+
     // Aplicar efeito de destaque no novo comentário
-    comment.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+    commentElement.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
     setTimeout(() => {
-      comment.style.transition = 'background-color 0.5s ease';
-      comment.style.backgroundColor = '';
+      commentElement.style.transition = 'background-color 0.5s ease';
+      commentElement.style.backgroundColor = '';
     }, 50);
-    
+
     // Focar no input para facilitar novos comentários
     commentInput.focus();
   }
+
+  // Função para limpar todos os comentários do usuário (opcional)
+  function clearAllUserComments() {
+    // Filtra apenas comentários pré-existentes
+    allComments = allComments.filter(comment => !comment.isUserComment);
+    // Limpa localStorage
+    localStorage.removeItem('userComments');
+    // Recarrega comentários
+    commentsContainer.innerHTML = '';
+    allComments.forEach(comment => {
+      createCommentElement(comment);
+    });
+  }
+
+  // Se quiser um botão para limpar todos os comentários, pode adicionar:
+  // const clearButton = document.createElement('button');
+  // clearButton.textContent = 'Limpar meus comentários';
+  // clearButton.addEventListener('click', clearAllUserComments);
+  // document.querySelector('.modal-header').appendChild(clearButton);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Verificar se há um slide salvo
+  const savedIndex = localStorage.getItem('swiperActiveIndex');
   
-  // Adicionar interação para os botões "Curtir" nos comentários
-  document.addEventListener('click', (e) => {
-    if (e.target.textContent === 'Curtir' && e.target.parentElement.classList.contains('comment-actions')) {
-      if (e.target.style.color === 'rgb(237, 73, 86)') {
-        e.target.style.color = '';
-        e.target.textContent = 'Curtir';
-      } else {
-        e.target.style.color = 'rgb(237, 73, 86)';
-        e.target.textContent = 'Curtido';
-      }
-    }
-  });
+  // Referência ao elemento container do Swiper
+  const swiperContainer = document.querySelector('.swiper');
   
-  // Adicionar funcionalidade de resposta aos comentários
-  document.addEventListener('click', (e) => {
-    if (e.target.textContent === 'Responder' && e.target.parentElement.classList.contains('comment-actions')) {
-      const username = e.target.parentElement.parentElement.querySelector('.comment-username').textContent;
-      commentInput.value = `@${username} `;
-      commentInput.focus();
+  // Se houver um índice salvo, ocultar o swiper até que seja inicializado no slide correto
+  if (savedIndex !== null) {
+      // Esconder o Swiper inicialmente
+      swiperContainer.style.opacity = '0';
       
-      // Habilitar o botão de publicar
-      postCommentButton.disabled = false;
+      // Inicializar Swiper com a opção init: false para não iniciar automaticamente
+      var swiper = new Swiper(".swiper", {
+          init: false, // Não inicializar automaticamente
+          direction: "vertical",
+          slidesPerView: 1,
+          spaceBetween: 30,
+          mousewheel: true,
+          effect: "coverflow",
+          speed: 2000,
+          coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+          },
+          pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+              renderBullet: function (index, className) {
+                  return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
+              },
+          },
+          on: {
+              slideChange: function() {
+                  localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+              }
+          }
+      });
       
-      // Rolar para o campo de comentário
-      document.querySelector('.add-comment').scrollIntoView({ behavior: 'smooth' });
-    }
-  });
+      // Inicializar no slide correto e mostrar depois
+      swiper.on('init', function() {
+          // Mover para o slide salvo sem animação
+          swiper.slideTo(parseInt(savedIndex), 0, false);
+          
+          // Mostrar o Swiper com uma transição suave
+          setTimeout(function() {
+              swiperContainer.style.transition = 'opacity 300ms';
+              swiperContainer.style.opacity = '1';
+          }, 50);
+      });
+      
+      // Inicializar o Swiper manualmente
+      swiper.init();
+  } else {
+      // Se não houver índice salvo, inicializar normalmente
+      var swiper = new Swiper(".swiper", {
+          direction: "vertical",
+          slidesPerView: 1,
+          spaceBetween: 30,
+          mousewheel: true,
+          effect: "coverflow",
+          speed: 2000,
+          coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+          },
+          pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+              renderBullet: function (index, className) {
+                  return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
+              },
+          },
+          on: {
+              slideChange: function() {
+                  localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+              }
+          }
+      });
+  }
 });
