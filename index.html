@@ -66,7 +66,7 @@
 
     <main>
         <div class="logo"><img src="images/ferrari-logo.png" alt="Ferrari Logo"></div>
-        <div class="menu"><i class="fas fa-bars"></i></div>
+        <!-- <div class="menu"><i class="fas fa-bars"></i></div> -->
         <div class="swiper">
             <div class="swiper-wrapper">
                 <!-- Primeiro slide - Ferrari -->
@@ -127,9 +127,9 @@
 
                         <div class="right-side">
                             <header>
-                                <img src="images/pfp.jpeg" alt="Foto de perfil">
+                                <img src="images/pfp.jpg" alt="Foto de perfil">
                                 <div>
-                                    <p>I&M</p>
+                                    <p>marcelo.ricardoo_</p>
                                     <i class="ri-verified-badge-fill"></i>
                                 </div>
                             </header>
@@ -170,6 +170,77 @@
                             </div>
                         </div>
                     </section>
+                    <!-- Modal de comentários -->
+<div class="modal-overlay" id="comments-modal-overlay">
+    <div class="comments-modal">
+      <div class="modal-header">
+        <h3>Comentários</h3>
+        <button id="close-modal"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="comments-container">
+        <!-- Comentário 1 -->
+        <div class="comment">
+          <img src="images/comentario1.jpg" alt="Avatar do usuário" class="comment-avatar">
+          <div class="comment-content">
+            <div class="comment-username">murilo_grilo_</div>
+            <div class="comment-text">Que casal lindo! Felicidades pra vocês 💜</div>
+            <div class="comment-actions">
+              <span>2d</span>
+              <span>Curtir</span>
+              <span>Responder</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comentário 2 -->
+        <div class="comment">
+          <img src="images/comentario2.jpg" alt="Avatar do usuário" class="comment-avatar">
+          <div class="comment-content">
+            <div class="comment-username">keremkeplin</div>
+            <div class="comment-text">Vocês são muito fofos juntos 💖💖💖</div>
+            <div class="comment-actions">
+              <span>3h</span>
+              <span>Curtir</span>
+              <span>Responder</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comentário 3 -->
+        <div class="comment">
+          <img src="https://i.pravatar.cc/150?img=6" alt="Avatar do usuário" class="comment-avatar">
+          <div class="comment-content">
+            <div class="comment-username">murilo.emanoel</div>
+            <div class="comment-text">🔥🔥🔥🔥</div>
+            <div class="comment-actions">
+              <span>1h</span>
+              <span>Curtir</span>
+              <span>Responder</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comentário 4 -->
+        <div class="comment">
+          <img src="images/comentario4.jpg" alt="Avatar do usuário" class="comment-avatar">
+          <div class="comment-content">
+            <div class="comment-username">olwe_ciryatan</div>
+            <div class="comment-text">Quanta melação 😭</div>
+            <div class="comment-actions">
+              <span>30min</span>
+              <span>Curtir</span>
+              <span>Responder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-comment">
+        <input type="text" placeholder="Adicione um comentário..." id="comment-input">
+        <button disabled id="post-comment">Publicar</button>
+      </div>
+    </div>
+  </div>
+  
                 </div>
 
                 <!-- Terceiro slide - Latente Corazon -->
