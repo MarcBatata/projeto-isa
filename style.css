@@ -3,43 +3,6 @@
 @import 'https://unpkg.com/open-props' layer(design.system);
 @import 'https://unpkg.com/open-props/normalize.dark.min.css' layer(demo.support);
 
-/* Custom Font Faces - Combined */
-@font-face {
-    font-family: 'Tan Pearl';
-    src: url('fonts/TanPearl.woff2') format('woff2'),
-         url('fonts/TanPearl.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'The Seasons';
-    src: url('fonts/Fontspring-DEMO-theseasons-reg.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'The Seasons';
-    src: url('fonts/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'The Seasons';
-    src: url('fonts/Fontspring-DEMO-theseasons-it.otf') format('opentype');
-    font-weight: normal;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'The Seasons';
-    src: url('fonts/Fontspring-DEMO-theseasons-bdit.otf') format('opentype');
-    font-weight: bold;
-    font-style: italic;
-}
-
 /* Reset and base settings */
 * {
     margin: 0;
@@ -98,6 +61,8 @@ section {
 
 .swiper-slide:nth-of-type(2) {
     background-color: #7a65a0 !important;
+    background-color: #4b1328 !important;
+    background-color: #330a30 !important;
 }
 
 .swiper-slide:nth-of-type(2) .yellow,
