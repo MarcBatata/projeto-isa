@@ -563,89 +563,191 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Criar o overlay de carregamento via JavaScript se ele não existir no HTML
+  let loadingOverlay = document.getElementById('loading-overlay');
+  if (!loadingOverlay) {
+    loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'loading-overlay';
+    loadingOverlay.className = 'loading-overlay';
+    
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    loadingOverlay.appendChild(spinner);
+    
+    document.body.insertBefore(loadingOverlay, document.body.firstChild);
+    
+    // Adicionar o CSS necessário se ainda não existir
+    const style = document.createElement('style');
+    style.textContent = `
+      .loading-overlay {
+        position: fixed;
+        top:.0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
   // Verificar se há um slide salvo
   const savedIndex = localStorage.getItem('swiperActiveIndex');
   
   // Referência ao elemento container do Swiper
   const swiperContainer = document.querySelector('.swiper');
   
-  // Se houver um índice salvo, ocultar o swiper até que seja inicializado no slide correto
+  // Esconder o Swiper inicialmente em todos os casos
+  swiperContainer.style.opacity = '0';
+  
+  // Esconder o logo inicialmente até determinarmos se ele deve estar visível
+  const logo = document.querySelector('.logo');
+  logo.style.opacity = '0';
+  logo.style.transition = 'none'; // Desativar a transição inicialmente
+  
+  // Função para configurar o controle do logo
+  function setupLogoControl(swiper) {
+    setTimeout(() => {
+      // Restabelecer a transição do logo
+      logo.style.transition = 'opacity 0.5s ease';
+      
+      // Controle inicial do logo baseado no slide atual
+      if (swiper.activeIndex === 0) {
+        gsap.to(logo, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
+      } else {
+        gsap.to(logo, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
+      }
+      
+      // Adicionar evento slideChange para controlar a visibilidade do logo
+      swiper.on('slideChange', function () {
+        if (swiper.activeIndex === 0) {
+          gsap.to(logo, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
+        } else {
+          gsap.to(logo, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
+        }
+      });
+    }, 50);
+  }
+  
+  // Função para remover o overlay de carregamento
+  function hideLoadingOverlay() {
+    loadingOverlay.style.opacity = '0';
+    setTimeout(() => {
+      loadingOverlay.style.display = 'none';
+    }, 500);
+  }
+  
+  // Se houver um índice salvo
   if (savedIndex !== null) {
-      // Esconder o Swiper inicialmente
-      swiperContainer.style.opacity = '0';
+    // Inicializar Swiper com a opção init: false para não iniciar automaticamente
+    var swiper = new Swiper(".swiper", {
+      init: false, // Não inicializar automaticamente
+      direction: "vertical",
+      slidesPerView: 1,
+      spaceBetween: 30,
+      mousewheel: true,
+      effect: "coverflow",
+      speed: 2000,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
+        },
+      },
+      on: {
+        slideChange: function() {
+          localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+        }
+      }
+    });
+    
+    // Inicializar no slide correto e mostrar depois
+    swiper.on('init', function() {
+      // Mover para o slide salvo sem animação
+      swiper.slideTo(parseInt(savedIndex), 0, false);
       
-      // Inicializar Swiper com a opção init: false para não iniciar automaticamente
-      var swiper = new Swiper(".swiper", {
-          init: false, // Não inicializar automaticamente
-          direction: "vertical",
-          slidesPerView: 1,
-          spaceBetween: 30,
-          mousewheel: true,
-          effect: "coverflow",
-          speed: 2000,
-          coverflowEffect: {
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-          },
-          pagination: {
-              el: ".swiper-pagination",
-              clickable: true,
-              renderBullet: function (index, className) {
-                  return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
-              },
-          },
-          on: {
-              slideChange: function() {
-                  localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
-              }
-          }
-      });
-      
-      // Inicializar no slide correto e mostrar depois
-      swiper.on('init', function() {
-          // Mover para o slide salvo sem animação
-          swiper.slideTo(parseInt(savedIndex), 0, false);
-          
-          // Mostrar o Swiper com uma transição suave
-          setTimeout(function() {
-              swiperContainer.style.transition = 'opacity 300ms';
-              swiperContainer.style.opacity = '1';
-          }, 50);
-      });
-      
-      // Inicializar o Swiper manualmente
-      swiper.init();
+      // Aguardar um tempo maior antes de mostrar o Swiper e configurar o logo
+      setTimeout(function() {
+        // Configurar o controle do logo
+        setupLogoControl(swiper);
+        
+        // Mostrar o Swiper com uma transição suave
+        swiperContainer.style.transition = 'opacity 800ms';
+        swiperContainer.style.opacity = '1';
+        
+        // Remover o overlay de carregamento
+        hideLoadingOverlay();
+      }, 800); // Aumentado para 800ms
+    });
+    
+    // Inicializar o Swiper manualmente
+    swiper.init();
   } else {
-      // Se não houver índice salvo, inicializar normalmente
-      var swiper = new Swiper(".swiper", {
-          direction: "vertical",
-          slidesPerView: 1,
-          spaceBetween: 30,
-          mousewheel: true,
-          effect: "coverflow",
-          speed: 2000,
-          coverflowEffect: {
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-          },
-          pagination: {
-              el: ".swiper-pagination",
-              clickable: true,
-              renderBullet: function (index, className) {
-                  return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
-              },
-          },
-          on: {
-              slideChange: function() {
-                  localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
-              }
-          }
-      });
+    // Se não houver índice salvo, inicializar normalmente
+    var swiper = new Swiper(".swiper", {
+      direction: "vertical",
+      slidesPerView: 1,
+      spaceBetween: 30,
+      mousewheel: true,
+      effect: "coverflow",
+      speed: 2000,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '"> <span>' + String(index + 1).padStart(2, '0') + '</span></span>';
+        },
+      },
+      on: {
+        slideChange: function() {
+          localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+        },
+        init: function() {
+          // Aguardar um tempo antes de mostrar o Swiper e configurar o logo
+          setTimeout(function() {
+            // Configurar o controle do logo
+            setupLogoControl(swiper);
+            
+            // Mostrar o Swiper com uma transição suave
+            swiperContainer.style.transition = 'opacity 800ms';
+            swiperContainer.style.opacity = '1';
+            
+            // Remover o overlay de carregamento
+            hideLoadingOverlay();
+          }, 800);
+        }
+      }
+    });
   }
 });
