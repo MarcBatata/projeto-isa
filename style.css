@@ -60,9 +60,8 @@ section {
 }
 
 .swiper-slide:nth-of-type(2) {
-    /* background-color: #7a65a0 !important; */
-    /* background-color: #4b1328 !important; */
     background-color: #330a30 !important;
+    background-color: #0b2b2b !important;
 }
 
 .swiper-slide:nth-of-type(2) .yellow,
