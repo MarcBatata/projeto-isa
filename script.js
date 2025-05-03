@@ -652,6 +652,16 @@ document.addEventListener('DOMContentLoaded', function() {
       loadingOverlay.style.display = 'none';
     }, 500);
   }
+
+  // Função para aplicar estilos específicos a cada slide
+  function applySlideStyles(swiper) {
+    // Se estiver no slide 2
+    if (swiper.activeIndex === 1) {
+      swiper.slides[1].style.backgroundColor = '#0b2b2b';
+    }
+    
+    // Adicione aqui mais condições para outros slides se necessário
+  }
   
   // Se houver um índice salvo
   if (savedIndex !== null) {
@@ -681,6 +691,7 @@ document.addEventListener('DOMContentLoaded', function() {
       on: {
         slideChange: function() {
           localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+          applySlideStyles(swiper); // Aplicar estilos quando mudar o slide
         }
       }
     });
@@ -694,6 +705,9 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         // Configurar o controle do logo
         setupLogoControl(swiper);
+        
+        // Aplicar estilos específicos aos slides após a inicialização
+        applySlideStyles(swiper);
         
         // Mostrar o Swiper com uma transição suave
         swiperContainer.style.transition = 'opacity 800ms';
@@ -732,12 +746,16 @@ document.addEventListener('DOMContentLoaded', function() {
       on: {
         slideChange: function() {
           localStorage.setItem('swiperActiveIndex', swiper.activeIndex);
+          applySlideStyles(swiper); // Aplicar estilos quando mudar o slide
         },
         init: function() {
           // Aguardar um tempo antes de mostrar o Swiper e configurar o logo
           setTimeout(function() {
             // Configurar o controle do logo
             setupLogoControl(swiper);
+            
+            // Aplicar estilos específicos aos slides após a inicialização
+            applySlideStyles(swiper);
             
             // Mostrar o Swiper com uma transição suave
             swiperContainer.style.transition = 'opacity 800ms';
@@ -750,4 +768,82 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+});
+
+// Funcionalidade para o botão IMPORTANTE e modal
+document.addEventListener('DOMContentLoaded', function() {
+  const btnImportante = document.getElementById('btn-importante');
+  const modal = document.getElementById('modal-explicacoes');
+  const closeModal = document.querySelector('.close-modal');
+  
+  // Função para abrir o modal
+  btnImportante.addEventListener('click', function() {
+      console.log("Botão clicado!"); // Debug
+      modal.style.display = 'flex';
+      modal.style.opacity = '1';
+      modal.style.visibility = 'visible';
+      
+      setTimeout(() => {
+          modal.classList.add('active');
+      }, 10);
+      
+      // Animar a entrada do modal com GSAP
+      gsap.to(".modal-content", {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+      });
+  });
+  
+  // Função para fechar o modal ao clicar no X
+  closeModal.addEventListener('click', function() {
+      fecharModal();
+  });
+  
+  // Fechar o modal ao clicar fora dele
+  window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+          fecharModal();
+      }
+  });
+  
+  // Função para fechar o modal
+  function fecharModal() {
+      gsap.to(".modal-content", {
+          scale: 0.8,
+          duration: 0.2,
+          ease: "power2.in"
+      });
+      
+      modal.classList.remove('active');
+      setTimeout(() => {
+          modal.style.opacity = '0';
+          modal.style.visibility = 'hidden';
+          setTimeout(() => {
+              modal.style.display = 'none';
+          }, 300);
+      }, 200);
+  }
+  
+  // Garantir que o modal seja fechado ao mudar de slide
+  swiper.on('slideChange', function() {
+      modal.classList.remove('active');
+      setTimeout(() => {
+          modal.style.display = 'none';
+      }, 300);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Garante que cada slide tenha suas propriedades independentes
+  swiper.on('slideChange', function() {
+      // Restaura as propriedades específicas do slide atual
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      
+      // Se estiver no slide 2
+      if (swiper.activeIndex === 1) {
+          // Restaurar propriedades específicas do slide 2
+          activeSlide.style.backgroundColor = '#0b2b2b'; // Substituir pela cor original
+      }
+  });
 });

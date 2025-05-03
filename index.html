@@ -54,13 +54,16 @@
 </head>
 
 <body>
-    <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
     <!-- Aviso para dispositivos móveis -->
     <div id="mobile-warning">
         <div class="warning-content">
             <div class="warning-icon">⚠️</div>
             <h2>Visualização não recomendada em dispositivos móveis</h2>
-            <p>Este site não está otimizado para telas pequenas. Para uma melhor experiência, por favor acesse em um computador.</p>
+            <p>Este site não está otimizado para telas pequenas. Para uma melhor experiência, por favor acesse em um
+                computador.</p>
             <p>Resolução mínima recomendada: 1133px de largura.</p>
         </div>
     </div>
@@ -90,6 +93,21 @@
                             <span><b>0-360</b> KMPH</span>
                             <span><b>710</b> KW</span>
                         </div>
+                        <!-- Novo botão IMPORTANTE -->
+                        <button id="btn-importante" class="btn-importante">IMPORTANTE</button>
+                    </div>
+                </div>
+
+                <!-- Modal de Glasmorfismo para explicações -->
+                <div id="modal-explicacoes" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h2>Explicações</h2>
+                        <p>Eu criei esse espaço para você. <br>
+                        Não para te prender, nem para te cobrar… mas para que, mesmo quando o silêncio ou a distância acontecerem — como já aconteceu antes — você se lembre de que eu continuo aqui.<br><br>
+                        Eu percebi que você não gosta de mensagens todos os dias e respeito isso. Por isso, esse site é um jeito de te deixar livre e, ao mesmo tempo, presente.<br><br>
+                        Aqui tem um pouco do que eu sinto, do que eu admiro em você, e do que eu gostaria que você levasse contigo, mesmo que um dia eu não esteja mais na sua vida. Quando quiser um encorajamento, um abraço escrito, ou só lembrar que alguém torce por você — este espaço é seu.<br><br>
+                        Com carinho, sempre.</p>
                     </div>
                 </div>
 
@@ -114,7 +132,8 @@
                                 <div class="letter">
                                     <div class="heart"></div>
                                     <div class="text">
-                                        <p>Você faz meus<br>dias mais bonitos.<br>Quero fazer isso<br>pra você também.<br>Com amor, Marcelo.</p>
+                                        <p>Você faz meus<br>dias mais bonitos.<br>Quero fazer isso<br>pra você
+                                            também.<br>Com amor, Marcelo.</p>
                                     </div>
                                 </div>
                                 <div class="front"></div>
@@ -172,121 +191,122 @@
                         </div>
                     </section>
                     <!-- Modal de comentários -->
-<div class="modal-overlay" id="comments-modal-overlay">
-    <div class="comments-modal">
-      <div class="modal-header">
-        <h3>Comentários</h3>
-        <button id="close-modal"><i class="ri-close-line"></i></button>
-      </div>
-      <div class="comments-container">
-        
-        <!-- Comentário 1 -->
-        <div class="comment">
-          <img src="images/comentario1.jpg" alt="Avatar do usuário" class="comment-avatar">
-          <div class="comment-content">
-            <div class="comment-username">murilo_grilo_</div>
-            <div class="comment-text">Que lindos! Felicidades pra vocês</div>
-            <div class="comment-actions">
-              <span>2d</span>
-              <span>Curtir</span>
-              <span>Responder</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Comentário 2 -->
-        <div class="comment">
-            <img src="images/comentario6.jpg" alt="Avatar do usuário" class="comment-avatar">
-            <div class="comment-content">
-              <div class="comment-username">charles_leclerc</div>
-              <div class="comment-text">These pics goes hard 🔥🏎</div>
-              <div class="comment-actions">
-                <span>3h</span>
-                <span>Curtir</span>
-                <span>Responder</span>
-              </div>
-            </div>
-          </div>
+                    <div class="modal-overlay" id="comments-modal-overlay">
+                        <div class="comments-modal">
+                            <div class="modal-header">
+                                <h3>Comentários</h3>
+                                <button id="close-modal"><i class="ri-close-line"></i></button>
+                            </div>
+                            <div class="comments-container">
 
-        <!-- Comentário 3 -->
-        <div class="comment">
-          <img src="images/comentario2.jpg" alt="Avatar do usuário" class="comment-avatar">
-          <div class="comment-content">
-            <div class="comment-username">keremkeplin</div>
-            <div class="comment-text">Vocês são muito fofos juntos 💖💖💖</div>
-            <div class="comment-actions">
-              <span>2h</span>
-              <span>Curtir</span>
-              <span>Responder</span>
-            </div>
-          </div>
-        </div>
-        
-        
-        <!-- Comentário 4 -->
-        <div class="comment">
-          <img src="images/comentario3.jpg" alt="Avatar do usuário" class="comment-avatar">
-          <div class="comment-content">
-            <div class="comment-username">murilo.emanoel</div>
-            <div class="comment-text">🔥🔥🔥🔥</div>
-            <div class="comment-actions">
-              <span>1h</span>
-              <span>Curtir</span>
-              <span>Responder</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Comentário 5 -->
-        <div class="comment">
-          <img src="images/comentario4.jpg" alt="Avatar do usuário" class="comment-avatar">
-          <div class="comment-content">
-            <div class="comment-username">olwe_ciryatan</div>
-            <div class="comment-text">Quanta melação 😭</div>
-            <div class="comment-actions">
-              <span>30min</span>
-              <span>Curtir</span>
-              <span>Responder</span>
-            </div>
-          </div>
-        </div>
+                                <!-- Comentário 1 -->
+                                <div class="comment">
+                                    <img src="images/comentario1.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">murilo_grilo_</div>
+                                        <div class="comment-text">Que lindos! Felicidades pra vocês</div>
+                                        <div class="comment-actions">
+                                            <span>2d</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-        <!-- Comentário 6 -->
-        <div class="comment">
-            <img src="images/comentario5.jpg" alt="Avatar do usuário" class="comment-avatar">
-            <div class="comment-content">
-              <div class="comment-username">maxverstappen1</div>
-              <div class="comment-text">This love just isn't better than seeing Ferrari losing</div>
-              <div class="comment-actions">
-                <span>1h</span>
-                <span>Curtir</span>
-                <span>Responder</span>
-              </div>
-            </div>
-          </div>
+                                <!-- Comentário 2 -->
+                                <div class="comment">
+                                    <img src="images/comentario6.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">charles_leclerc</div>
+                                        <div class="comment-text">These pics goes hard 🔥🏎</div>
+                                        <div class="comment-actions">
+                                            <span>3h</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-          <!-- Comentário 7 -->
-        <div class="comment">
-            <img src="images/comentario7.jpg" alt="Avatar do usuário" class="comment-avatar">
-            <div class="comment-content">
-              <div class="comment-username">cesar_ape</div>
-              <div class="comment-text">Macacos Unidos Fortes</div>
-              <div class="comment-actions">
-                <span>1h</span>
-                <span>Curtir</span>
-                <span>Responder</span>
-              </div>
-            </div>
-          </div>        
+                                <!-- Comentário 3 -->
+                                <div class="comment">
+                                    <img src="images/comentario2.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">keremkeplin</div>
+                                        <div class="comment-text">Vocês são muito fofos juntos 💖💖💖</div>
+                                        <div class="comment-actions">
+                                            <span>2h</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-      </div>
-      <div class="add-comment">
-        <input type="text" placeholder="Adicione um comentário..." id="comment-input">
-        <button disabled id="post-comment">Publicar</button>
-      </div>
-    </div>
-  </div>
-  
+
+                                <!-- Comentário 4 -->
+                                <div class="comment">
+                                    <img src="images/comentario3.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">murilo.emanoel</div>
+                                        <div class="comment-text">🔥🔥🔥🔥</div>
+                                        <div class="comment-actions">
+                                            <span>1h</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Comentário 5 -->
+                                <div class="comment">
+                                    <img src="images/comentario4.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">olwe_ciryatan</div>
+                                        <div class="comment-text">Quanta melação 😭</div>
+                                        <div class="comment-actions">
+                                            <span>30min</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Comentário 6 -->
+                                <div class="comment">
+                                    <img src="images/comentario5.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">maxverstappen1</div>
+                                        <div class="comment-text">This love just isn't better than seeing Ferrari losing
+                                        </div>
+                                        <div class="comment-actions">
+                                            <span>1h</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Comentário 7 -->
+                                <div class="comment">
+                                    <img src="images/comentario7.jpg" alt="Avatar do usuário" class="comment-avatar">
+                                    <div class="comment-content">
+                                        <div class="comment-username">cesar_ape</div>
+                                        <div class="comment-text">Macacos Unidos Fortes</div>
+                                        <div class="comment-actions">
+                                            <span>1h</span>
+                                            <span>Curtir</span>
+                                            <span>Responder</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="add-comment">
+                                <input type="text" placeholder="Adicione um comentário..." id="comment-input">
+                                <button disabled id="post-comment">Publicar</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Terceiro slide - Latente Corazon -->
@@ -1153,17 +1173,17 @@
             if (window.innerWidth <= 1132) {
                 return true;
             }
-            
+
             // Método 2: Verificar o user agent (menos confiável, mas útil como backup)
             const userAgent = navigator.userAgent.toLowerCase();
             const mobileKeywords = ['android', 'iphone', 'ipod', 'ipad', 'windows phone', 'blackberry', 'nokia'];
-            
+
             for (let i = 0; i < mobileKeywords.length; i++) {
                 if (userAgent.indexOf(mobileKeywords[i]) !== -1) {
                     return true;
                 }
             }
-            
+
             return false;
         }
 
@@ -1180,7 +1200,7 @@
 
         // Verificar quando a página carregar
         window.addEventListener('load', checkDevice);
-        
+
         // Verificar novamente se o tamanho da janela mudar
         window.addEventListener('resize', checkDevice);
     </script>
@@ -1264,14 +1284,18 @@
             const messages = [
                 // "Eu te amo",
                 "Isa você é luz",
+                "Isa você é luz",
+                "Te quero bem",
                 "Sou feliz por ter você",
                 "Obrigado por ter voltado",
                 "Você é um presente de Deus",
                 "Você é perfeita do jeitinho que é",
                 "Você é linda",
+                "Você é linda",
                 "Seu sorriso ilumina tudo",
                 "Eu admiro você",
-                "Você me inspira todos os dias",
+                // "Você me inspira todos os dias",
+                "Você me inspira",
                 "Você é perfeita",
                 "Eu amo seu jeito de ser",
                 "Você é especial demais",
@@ -1281,9 +1305,78 @@
                 "Você me faz querer ser alguém melhor",
                 "Eu sou apaixonado pelo seu olhar",
                 "Você me faz sorrir sem perceber",
-                "Você é meu porto seguro",
+                // "Você é meu porto seguro",
                 "Eu me encanto com você todos os dias",
                 "Quero você",
+                "Você é forte",
+                "Você é forte",
+                "Você é corajosa",
+                "Você é mais corajosa do que imagina",
+                "Você é cheia de sabedoria",
+                "Você é a doçura em pessoa",
+                "Você tem uma alma linda",
+                "Você é determinada e brilhante",
+                "Você é rara e preciosa",
+                "Você é capaz de tudo que sonha",
+                "Você tem uma essência única",
+                "Você é puro encanto",
+                "Você é a definição de autenticidade",
+                "Você é forte e incrível",
+                "Você tem um coração gigante",
+                "Seus sonhos são lindos e possíveis",
+                "Você merece conquistar o que deseja",
+                "Eu acredito nos seus sonhos",
+                "Você tem tudo para chegar onde quiser",
+                "Nunca duvide da força dos seus sonhos",
+                "Você foi feita para ir além",
+                "Seu caminho é cheio de possibilidades",
+                "Você tem asas que ninguém pode tirar",
+                "Seu futuro é tão bonito quanto você",
+                "Seu futuro é lindo",
+                "Seu futuro é lindo",
+                "Você já venceu tantas batalhas e ainda sorri",
+                "Você é feita de superações e sonhos",
+                "Você cresce a cada dia, com coragem e graça",
+                "Seu caminho é de força e beleza",
+                "Cuide de você com carinho",
+                "Seu bem-estar é importante",
+                "Cuide de você com carinho",
+                "Seu bem-estar é importante",
+                "Você não precisa carregar o mundo sozinha",
+                "Você merece descanso e paz",
+                "Você merece todo o cuidado do mundo",
+                "Você é realmente uma princesa",
+                "Admiro sua forma de enxergar a vida",
+                "É bonito te ver sendo você mesma",
+                "Tudo bem respirar e recomeçar",
+                "Você vai ficar bem, como sempre ficou",
+                "Você vai ficar bem, como sempre ficou",
+                "O seu jeito forte e doce vai te guiar",
+                "Se acalma, você já passou por piores e venceu",
+                "Sua paz vai chegar no tempo certo",
+                "Sua paz vai chegar no tempo certo",
+                "Curta o agora, você merece",
+                "Não apresse o que tem seu tempo",
+                "O hoje já é especial porque você existe",
+                "Você merece viver com leveza",
+                "Você merece viver com leveza",
+                "Seu valor não diminui quando você erra",
+                "Seu valor não diminui quando você erra",
+                "Você é digna de tudo que sonha",
+                "O universo conspira a favor de quem é do bem",
+                "A vida sorri pra quem espalha luz",
+                "Você sempre encontra um jeito bonito de seguir em frente",
+                "Não tenha pressa, você está no caminho certo",
+                "Não tenha pressa, você está no caminho certo",
+                "Seu coração sabe a direção",
+                "Seu coração sabe a direção",
+                "É corajoso dar um passo de cada vez",
+                "Confia, as coisas boas vão voltar a florescer",
+                "O presente é um presente",
+                "Seu tempo floresce no ritmo certo",
+                "Desfrute da calma de estar aqui e agora",
+                "Respira, você já está onde precisa estar",
+                "Eu fico aqui, mesmo quando o mundo não for gentil",
                 "Seu coração é puro e lindo",
                 "Eu amo suas imperfeições — elas te fazem única",
                 "Você faz a vida mais leve",
@@ -1292,34 +1385,36 @@
                 "Você é incrível",
                 // "Eu confio em você de olhos fechados",
                 "Eu sou grato por você existir",
-                "Você é a melhor parte do meu dia",
+                // "Você é a melhor parte do meu dia",
+                "Eu admiro sua força e sua doçura",
                 "Eu admiro sua força e sua doçura",
                 "Eu amo estar ao seu lado",
                 "Seu riso é música pra mim",
                 "Eu me sinto em casa com você",
-                "Você me faz acreditar no amor",
+                // "Você me faz acreditar no amor",
                 "Você é tudo que eu sempre quis",
                 "Seu jeito me fascina",
                 "Eu não me canso de olhar para você",
                 "Você merece tudo de melhor",
                 "Eu me sinto completo com você",
-                "Eu amo te cuidar",
+                // "Eu amo te cuidar",
                 "Você é poesia em forma de gente",
                 "Seu jeito é único e maravilhoso",
+                "Eu te admiro tanto",
                 "Eu te admiro tanto",
                 "Você deixa minha vida mais colorida",
                 "Você é a paz que eu procurava",
                 "Eu amo sua risada",
-                "Você é meu sonho bom",
+                // "Você é meu sonho bom",
                 "Eu quero te fazer feliz todos os dias",
-                "Você é meu lugar favorito",
+                // "Você é meu lugar favorito",
                 "Eu te respeito e te valorizo",
                 "Você é leveza e amor",
                 // "Eu amo suas manias",
                 "Você é tão importante pra mim",
                 "Eu te aceito do jeitinho que você é",
                 "Eu amo compartilhar a vida com você",
-                "Você é o motivo do meu sorriso",
+                // "Você é o motivo do meu sorriso",
                 "Eu me orgulho de você",
                 "Eu te quero bem, sempre",
                 "Eu amo seus olhos brilhando de alegria",
@@ -1328,72 +1423,78 @@
                 "Eu te escolheria mil vezes",
                 "Eu amo a paz que você me traz",
                 "Seu jeito de ver o mundo me encanta",
-                "Eu amo escutar seus sonhos",
+                "Eu amo escutar sobre seus sonhos",
                 "Eu me sinto abençoado por te ter na minha vida",
-                "Você faz até os dias difíceis valerem a pena",
+                // "Você faz até os dias difíceis valerem a pena",
                 "Eu amo te ver sorrindo de verdade",
-                "Você é meu melhor presente",
+                // "Você é meu melhor presente",
                 "Eu admiro sua coragem e seu coração",
                 "Eu quero ser seu abrigo quando o mundo pesar",
                 "Eu me sinto completo quando estou com você",
-                /* Adições */
                 "Eu quero ser seu porto seguro nos dias bons e ruins",
                 "Você merece ser amada com calma e verdade",
                 "Eu te escuto com o coração aberto",
                 "Com você, até o silêncio é confortável",
                 "Eu quero somar na sua vida, sempre",
                 "Seu jeito de ser me faz querer ficar para sempre",
-                "Você é a parte mais bonita do meu dia",
+                // "Você é a parte mais bonita do meu dia",
                 "Eu cuido de você com o mesmo carinho que cuido dos meus sonhos",
                 "Você é a pessoa que eu quero dividir todos os meus planos",
                 "Eu vejo um futuro bonito quando olho pra você",
                 "Você é a calma que equilibra meu mundo",
                 "Eu quero celebrar cada conquista sua, grande ou pequena",
+                "Você terá muitas conquistas",
                 "Você me ensina a ver beleza nas pequenas coisas",
                 "Eu prometo te apoiar em cada sonho seu",
                 "Seu sorriso me faz acreditar que tudo vai dar certo",
                 "Eu admiro a pessoa incrível que você é, todos os dias",
-                "Eu quero ser sempre o seu lugar seguro",
-                "Com você, eu aprendi o valor da leveza e da paciência",
+                "Eu quero ser o seu lugar seguro",
+                "Com você, eu aprendi o valor da leveza", // e da paciência,
                 "Eu sou feliz só de saber que você existe",
                 "Quero escrever a vida ao seu lado, uma página de cada vez",
                 "Eu amo seu olhar",
                 "Eu amo sua boca",
                 "Eu amo seu sorriso",
+                "Seus sonhos vão se realizar",
                 // "Você é o tipo de amor que eu sempre sonhei",
                 "Eu não canso de agradecer por ter cruzado o seu caminho",
                 "Eu te amo de um jeito sereno, que abraça e não aperta",
                 "Você merece todo o amor do mundo — e eu quero te dar",
                 "Eu admiro a forma como você enfrenta a vida com coragem e doçura",
-                "Eu sempre estarei aqui para você, independente de tudo",
-                "Você é a escolha que eu faria em qualquer vida",
+                // "Eu sempre estarei aqui para você, independente de tudo",
+                "Eu estarei aqui para você",
+                // "Você é a escolha que eu faria em qualquer vida",
                 "Eu quero dançar a vida com você, mesmo nos dias de música baixa",
                 "Com você, tudo faz mais sentido",
-                "Meu abrigo é você",
+                "Sorria! A vida é bonita",
+                // "Meu abrigo é você",
                 "Você me acalma",
                 "Com você é leve",
-                "Você é meu lar",
+                // "Você é meu lar",
                 "Te quero por perto",
                 "Você é meu sonho",
                 "Seu sorriso é casa",
                 "Você me faz bem",
+                "Quero te abraçar",
                 "Quero sempre você",
                 "Você me completa",
-                "Você é meu presente",
-                "Você é minha paz",
+                // "Você é meu presente",
+                // "Você é minha paz",
                 "Te admiro tanto",
-                "Você é tudo pra mim",
+                "Te admiro tanto",
+                "Quero te beijar",
+                // "Você é tudo pra mim",
                 "Sorte a minha ter você",
-                "Você é o meu sol",
-                "Eu cuido de você",
+                // "Você é o meu sol",
+                "Eu quero cuidar de você",
                 "Eu torço por você",
-                "Você é meu brilho",
-                "Quero dividir tudo",
+                // "Você é meu brilho",
+                "Quero dividir tudo contigo",
                 "Você vale a pena",
-                "Você é meu amor",
+                // "Você é meu amor",
                 "Te carrego comigo",
                 "Eu te escolho",
-                "Você é meu destino",
+                // "Você é meu destino",
                 "Você ilumina tudo",
                 "Com você é paz",
                 "Te guardo no peito",
@@ -1404,12 +1505,15 @@
                 "Eu adoraria te abraçar agora",
                 "Você merece ser amada todos os dias",
                 "Eu amo o jeitinho que você me olha",
+                "Você vai conquistar o mundo",
+                "Você é especial",
                 // "Com você eu aprendi o que é o amor de verdade",
                 "Você é a paz que eu não sabia que procurava",
-                "Seu jeito me faz bem de um jeito que eu não sei explicar",
+                // "Seu jeito me faz bem de um jeito que eu não sei explicar",
+                "Você me faz bem de um jeito que não sei explicar",
                 "Você me completa de um jeito leve",
                 "Eu quero estar sempre aqui para você",
-                "A vida ganhou mais sentido desde que te encontrei",
+                // "A vida ganhou mais sentido desde que te encontrei",
                 "Você é a minha história favorita",
                 "Eu quero ser o seu descanso, o seu abrigo",
                 "Você me faz acreditar que tudo vai dar certo",
@@ -1418,12 +1522,12 @@
                 "Eu não trocaria você por nada nesse mundo",
                 "Você é o meu melhor acaso",
                 "Seu sorriso é meu sol particular",
-                "Te ver sorrindo é meu melhor momento",
-                "Seu sorriso ilumina minha alma",
+                // "Te ver sorrindo é meu melhor momento",
+                // "Seu sorriso ilumina minha alma",
                 "Eu me perco no seu sorriso",
                 "Seu sorriso acalma meu coração",
                 "Sorrir com você é leveza pura",
-                "Eu vivo pra ver o seu sorriso",
+                // "Eu vivo pra ver o seu sorriso",
                 "Seu sorriso vale o meu dia",
                 "Você sorri e tudo melhora",
                 "O mundo fica mais bonito quando você sorri",
@@ -1437,11 +1541,10 @@
                 "Seu olhar me abraça de longe",
                 "Eu amo mergulhar no seu olhar",
                 "Seus olhos são minha calmaria",
-                /* Adições */
                 // "Eu amo o jeito que você cuida de mim",
-                "Você é o abraço que minha alma sempre procurou",
+                // "Você é o abraço que minha alma sempre procurou",
                 "Eu quero envelhecer ao seu lado",
-                "Você é o meu amanhecer mais bonito",
+                // "Você é o meu amanhecer mais bonito",
                 "Eu amo a leveza que você traz pros meus dias",
                 "Você me ensina a ser uma pessoa melhor",
                 "Eu amo como a gente se entende com o olhar",
@@ -1458,9 +1561,12 @@
                 // "Você me faz acreditar que o amor de verdade existe",
                 "Quando estou com você tudo parece correto",
                 "Minha parte favorita do dia é passar tempo com você",
-                "Eu não vou deixar você ir",
-                "Quero te dizer tantas coisas, então fiz esse site para você",
-                "Você está no topo das minhas prioridades"
+                // "Eu não vou deixar você ir",
+                // "Quero te dizer tantas coisas, então fiz esse site para você",
+                "Quero te dizer tantas coisas",
+                "Esse espaço é seu",
+                "Você está no topo das minhas prioridades",
+                "Obrigado"
                 // "Não vá embora"
             ];
 
@@ -1546,7 +1652,7 @@
                         const msg = messages[Math.floor(Math.random() * messages.length)];
                         createMessage(msg);
                     }
-                }, 3500);
+                }, 3250);
             }
 
             function stopMessagesInterval() {
