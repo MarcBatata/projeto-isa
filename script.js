@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Variáveis para controlar o estado de curtida e salvamento
   let isLiked = false;
   let isSaved = false;
-  let likesCount = 3802; // Valor inicial baseado no HTML
+  let likesCount = 57; // Valor inicial baseado no HTML
 
   /**
    * Toggle da funcionalidade de like (curtida)
